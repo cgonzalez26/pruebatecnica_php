@@ -9,19 +9,19 @@ function ViewEstudiante() {
     const [Estudiantes, setEstudiante] = useState([]);
 
     useEffect(() => {
-        let Estudiantes = [
+        /*let Estudiantes = [
             {id : "1", nombre: "Jose Lopez", curso: "BD", email: "jlopez@gmail.com", telefono: "12345"},
             {id : "2", nombre: "Jorge Caro", curso: "Programacion", email: "jcaro@gmail.com", telefono: "123456"}
-          ];
-        /*axios.get(`/api/estudiantes`).then(res=>{
+          ];*/
+        axios.get(`/api/estudiantes`).then(res=>{
             if(res.status === 200)
             {
                 setEstudiante(res.data.Estudiantes)
                 setLoading(false);
             }
-        });*/
-        setEstudiante(Estudiantes);
-        setLoading(false);
+        });
+        /*setEstudiante(Estudiantes);
+        setLoading(false);*/
 
     }, []);
     

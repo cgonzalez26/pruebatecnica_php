@@ -13,7 +13,7 @@ function EditEstudiante(props) {
     useEffect(() => {
         
         //const Estudiante_id = props.match.params.id;
-       /* axios.get(`/api/edit-estudiante/${props.match.params.id}`).then( res => {   
+        axios.get(`/api/edit-estudiante/${props.match.params.id}`).then( res => {   
 
             if(res.data.status === 200)
             {
@@ -25,13 +25,13 @@ function EditEstudiante(props) {
                 swal("Error",res.data.message,"error");
                 navigate('/estudiantes');
             }
-        });*/
-        let Estudiantes = [
+        });
+        /*let Estudiantes = [
             {id : "1", nombre: "Jose Lopez", curso: "BD", email: "jlopez@gmail.com", telefono: "12345"},
             {id : "2", nombre: "Jorge Caro", curso: "Programacion", email: "jcaro@gmail.com", telefono: "123456"}
           ];
           setEstudiante(Estudiantes[1]);
-          setLoading(false);
+          setLoading(false);*/
             //[props.match.params.id,navigate]
     }, [navigate]);
 
@@ -55,13 +55,13 @@ function EditEstudiante(props) {
         axios.put(`/api/update-estudiante/${props.match.params.id}`, data).then(res=>{
             if(res.data.status === 200)
             {
-                swal("Success",res.data.message,"success");
+                swal("Éxito",res.data.message,"success");
                 setError([]);
                 navigate('/estudiantes');
             }
             else if(res.data.status === 422)
             {
-                swal("All fields are mandetory","","error");
+                swal("Todos los campos son Obligatorios","","error");
                 setError(res.data.validationErrors);
             }
             else if(res.data.status === 404)

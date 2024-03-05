@@ -33,7 +33,7 @@ function AddEstudiante() {
 
             if(res.data.status === 200)
             {
-                swal("Success!",res.data.message,"success");
+                swal("Éxito!",res.data.message,"success");
                 setEstudiante({
                     nombre: '',
                     curso: '',

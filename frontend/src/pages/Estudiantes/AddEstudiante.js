@@ -4,7 +4,7 @@ import axios from 'axios';
 import swal from 'sweetalert';
 
 function AddEstudiante() {
-
+    //Inicializamos las variables a utilizar
     const navigate = useNavigate();
     const [estudianteInput, setEstudiante] = useState({
         nombre: '',
@@ -19,18 +19,19 @@ function AddEstudiante() {
         setEstudiante({...estudianteInput, [e.target.name]: e.target.value })
     }
 
+    //definimos la Constante para guardar el formulario de Alta
     const saveEstudiante = (e) => {
         e.preventDefault();
-        
+        //obtenemos los datos del formulario
         const data = {
             nombre:estudianteInput.nombre,
             curso:estudianteInput.curso,
             email:estudianteInput.email,
             telefono:estudianteInput.telefono,
         }
-
+        //mandamos los datos a la API para guardar los datos del Estudiante cargado
         axios.post(`/api/add-estudiante`, data).then(res => {
-            console.log('add ',res);
+            //si se guardaron los datos correctamente emitimos un Mensaje y volvemos al listado
             if(res.data.status === 200)
             {
                 swal("Éxito!",res.data.message,"success");
@@ -43,13 +44,14 @@ function AddEstudiante() {
                 });
                 navigate('/estudiantes');
             }
+            //si No se guardaron los datos emitimos un mensaje de Error
             else if(res.data.status === 422)
             {
                 setEstudiante({...estudianteInput, error_list: res.data.validate_err });
             }
         });
     }
-
+    //generamos el HTML del formulario de Alta de Estudiante
     return (
         <div>
             <div className="container">

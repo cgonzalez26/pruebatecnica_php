@@ -13,6 +13,7 @@ function ViewEstudiante() {
             {id : "1", nombre: "Jose Lopez", curso: "BD", email: "jlopez@gmail.com", telefono: "12345"},
             {id : "2", nombre: "Jorge Caro", curso: "Programacion", email: "jcaro@gmail.com", telefono: "123456"}
           ];*/
+        //obtenemos a través de la API el listado de los Estudiantes de la Base de datos  
         axios.get(`/api/estudiantes`).then(res=>{
             console.log(res);
             if(res.status === 200)
@@ -20,12 +21,10 @@ function ViewEstudiante() {
                 setEstudiante(res.data.estudiantes)
                 setLoading(false);
             }
-        });
-        /*setEstudiante(Estudiantes);
-        setLoading(false);*/
-
+        });       
     }, []);
     
+    //Definimos una contante para implemenatar la funcionalidad de Eliminar un Estudiante
     const deleteEstudiante = (e, id) => {
         e.preventDefault();
         
@@ -53,7 +52,8 @@ function ViewEstudiante() {
     else
     {
         var Estudiante_HTMLTABLE = "";
-        console.log(Estudiantes);
+        //console.log(Estudiantes);
+        //Armamos el HTML de las filas de los datos de Estudiantes
         Estudiante_HTMLTABLE = Estudiantes?.map( (item, index) => {
             return (
                 <tr key={index}>
@@ -66,13 +66,13 @@ function ViewEstudiante() {
                         <Link to={`edit-estudiante/${item.id}`} className="btn btn-success btn-sm">Editar</Link>
                     </td>
                     <td>
-                        <button type="button" onClick={(e) => deleteEstudiante(e, item.id)} className="btn btn-danger btn-sm">Eliminar</button>
+                        <button type="button" onClick={(e) => {if(window.confirm('¿Esta seguro de eliminar el Registro?')){ deleteEstudiante(e,item.id)};}} className="btn btn-danger btn-sm">Eliminar</button>
                     </td>
                 </tr>
             );
         });
     }
-
+    //generamos el contenedor de los datos a mostrar
     return (
         <div>
             <div className="container">

@@ -4,7 +4,7 @@ import axios from 'axios';
 import swal from 'sweetalert';
 
 function AddCurso() {
-
+    //Inicializamos las variables a utilizar
     const navigate = useNavigate();
     const [cursoInput, setCurso] = useState({
         nombre: '',
@@ -17,36 +17,37 @@ function AddCurso() {
         e.persist();
         setCurso({...cursoInput, [e.target.name]: e.target.value })
     }
-
+    //definimos la Constante para guardar el formulario de Alta
     const saveCurso = (e) => {
         e.preventDefault();
-        
+        //obtenemos los datos del formulario
         const data = {
             nombre:cursoInput.nombre,
             descripcion:cursoInput.descripcion,
             estado:cursoInput.estado
         }
-
+        //mandamos los datos a la API para guardar los datos del Curso cargado
         axios.post(`/api/add-curso`, data).then(res => {
-
+            //si se guardaron los datos correctamente emitimos un Mensaje y volvemos al listado
             if(res.data.status === 200)
             {
-                swal("Success!",res.data.message,"success");
+                swal("Éxito!",res.data.message,"success");
                 setCurso({
                     nombre: '',
                     descripcion: '',
                     estado: '',                
                     error_list: [],
                 });
-                navigate('/Cursos');
+                navigate('/cursos');
             }
+            //si No se guardaron los datos emitimos un mensaje de Error
             else if(res.data.status === 422)
             {
                 setCurso({...cursoInput, error_list: res.data.validate_err });
             }
         });
     }
-
+    //generamos el HTML del formulario de Alta de Curso
     return (
         <div>
             <div className="container">

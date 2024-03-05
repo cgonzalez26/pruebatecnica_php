@@ -4,7 +4,7 @@ import axios from 'axios';
 import swal from 'sweetalert';
 
 function EditEstudiante(props) {
-
+     //Inicializamos las variables a utilizar
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
     const [estudianteInput, setEstudiante] = useState([]);
@@ -16,12 +16,13 @@ function EditEstudiante(props) {
         const Estudiante_id = id;
         //axios.get(`/api/edit-estudiante/${props.match.params.id}`).then( res => {   
         axios.get(`/api/edit-estudiante/${Estudiante_id}`).then( res => {       
-
+            //si se guardaron los datos correctamente emitimos un Mensaje y volvemos al listado
             if(res.data.status === 200)
             {
                 setEstudiante(res.data.estudiante);
                 setLoading(false);
             }
+            //si No se guardaron los datos emitimos un mensaje de Error
             else if(res.data.status === 404)
             {
                 swal("Error",res.data.message,"error");
@@ -41,12 +42,13 @@ function EditEstudiante(props) {
         e.persist();
         setEstudiante({...estudianteInput, [e.target.name]: e.target.value });
     }
-
+    //definimos la Constante para guardar el formulario de Edicion
     const updateEstudiante = (e) => {
         e.preventDefault();
         
         //const Estudiante_id = props.match.params.id;
         // const data = estudianteInput;
+        //obtenemos los datos del formulario
         const data = {
             nombre: estudianteInput.nombre,
             curso: estudianteInput.curso,
@@ -54,7 +56,9 @@ function EditEstudiante(props) {
             telefono: estudianteInput.telefono,
         }
         const Estudiante_id = id;
+        //mandamos los datos a la API para guardar los datos del Estudiante editado
         axios.put(`/api/update-estudiante/${Estudiante_id}`, data).then(res=>{
+            //si se guardaron los datos correctamente emitimos un Mensaje y volvemos al listado
             if(res.data.status === 200)
             {
                 swal("Éxito",res.data.message,"success");
@@ -66,6 +70,7 @@ function EditEstudiante(props) {
                 swal("Todos los campos son Obligatorios","","error");
                 setError(res.data.validationErrors);
             }
+            //si No se guardaron los datos emitimos un mensaje de Error
             else if(res.data.status === 404)
             {
                 swal("Error",res.data.message,"error");
@@ -78,7 +83,7 @@ function EditEstudiante(props) {
     {
         return <h4>Cargando datos de Estudiante...</h4>
     }
-    
+    //generamos el HTML del formulario de Edicion de Estudiante
     return (
         <div>
             <div className="container">

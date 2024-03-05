@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 
 class EstudianteController extends Controller
 {
+    //Método para obtener todos los Estudiantes 
     public function index()
     {
         $estudiantes = Estudiante::all();
@@ -19,6 +20,7 @@ class EstudianteController extends Controller
         ]);
     }
 
+    //Método para agregar un Estudiante 
     public function add(Request $request)
     {
         $validator = Validator::make($request->all(),[
@@ -52,6 +54,7 @@ class EstudianteController extends Controller
 
     }
 
+    //Método para obtener datos de un Estudiante 
     public function edit($id)
     {
         $estudiante = Estudiante::find($id);
@@ -72,6 +75,7 @@ class EstudianteController extends Controller
 
     }
 
+    //Método para modificar un Estudiante
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(),[
@@ -115,6 +119,7 @@ class EstudianteController extends Controller
         }
     }
 
+    //Método para borrar un Estudiante
     public function destroy($id)
     {
         $estudiante = Estudiante::find($id);

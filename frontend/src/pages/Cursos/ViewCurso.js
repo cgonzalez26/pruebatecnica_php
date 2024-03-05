@@ -9,22 +9,22 @@ function ViewCurso() {
     const [Cursos, setCurso] = useState([]);
 
     useEffect(() => {
-        let Cursos = [
+        /*let Cursos = [
             {id : "1", nombre: "Curso 1", descripcion: "test curso 1", estado: "abierto"},
             {id : "2", nombre: "Curso 2", descripcion: "test curso 2", estado: "cerrado"}
           ];
-        /*axios.get(`/api/Cursos`).then(res=>{
+        */
+        //obtenemos a través de la API el listado de los Cursos de la Base de datos    
+        axios.get(`/api/cursos`).then(res=>{
             if(res.status === 200)
             {
-                setCurso(res.data.Cursos)
+                setCurso(res.data.cursos)
                 setLoading(false);
             }
-        });*/
-        setCurso(Cursos);
-        setLoading(false);
-
+        });
     }, []);
     
+    //Definimos una contante para implemenatar la funcionalidad de Eliminar un Estudiante
     const deleteCurso = (e, id) => {
         e.preventDefault();
         
@@ -45,6 +45,13 @@ function ViewCurso() {
         });
     }
 
+    /*const confirmDeleteCurso = (e, id) => {
+        var opcion = confirm("¿Desea eliminar el registro?");
+        if (opcion == true) {
+            deleteCurso(e, id);
+        }
+    }*/
+
     if(loading)
     {
         return <h4>Cargando datos de Cursos...</h4>
@@ -52,8 +59,8 @@ function ViewCurso() {
     else
     {
         var Curso_HTMLTABLE = "";
-        
-        Curso_HTMLTABLE = Cursos.map( (item, index) => {
+        //Armamos el HTML de las filas de los datos de Estudiantes
+        Curso_HTMLTABLE = Cursos?.map( (item, index) => {
             return (
                 <tr key={index}>
                     <td>{item.id}</td>
@@ -64,13 +71,13 @@ function ViewCurso() {
                         <Link to={`edit-curso/${item.id}`} className="btn btn-success btn-sm">Editar</Link>
                     </td>
                     <td>
-                        <button type="button" onClick={(e) => deleteCurso(e, item.id)} className="btn btn-danger btn-sm">Eliminar</button>
+                        <button type="button" onClick={(e) => {if(window.confirm('¿Esta seguro de eliminar el Registro?')){ deleteCurso(e,item.id)};}} className="btn btn-danger btn-sm">Eliminar</button>
                     </td>
                 </tr>
             );
         });
     }
-
+    //generamos el contenedor de los datos a mostrar
     return (
         <div>
             <div className="container">

@@ -1,68 +1,76 @@
 import React, {useState, useEffect} from 'react';
-import {Link, useNavigate} from 'react-router-dom';
+import {Link, useNavigate, useParams} from 'react-router-dom';
 import axios from 'axios';
 import swal from 'sweetalert';
 
 function EditCurso(props) {
-
+     //Inicializamos las variables a utilizar
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
     const [cursoInput, setCurso] = useState([]);
     const [errorInput, setError] = useState([]);
+    const { id } = useParams();
 
     useEffect(() => {
         
         //const Curso_id = props.match.params.id;
-       /* axios.get(`/api/edit-Curso/${props.match.params.id}`).then( res => {   
-
+        const Curso_id = id;
+        axios.get(`/api/edit-curso/${Curso_id}`).then( res => {   
+            //si se guardaron los datos correctamente emitimos un Mensaje y volvemos al listado
             if(res.data.status === 200)
             {
-                setCurso(res.data.Curso);
+                setCurso(res.data.curso);
                 setLoading(false);
             }
+            //si No se guardaron los datos emitimos un mensaje de Error
             else if(res.data.status === 404)
             {
                 swal("Error",res.data.message,"error");
-                navigate('/Cursos');
+                navigate('/cursos');
             }
-        });*/
-        let Cursos = [
+        });
+        /*let Cursos = [
             {id : "1", nombre: "Curso 1", descripcion: "test curso 1", estado: "abierto"},
             {id : "2", nombre: "Curso 2", descripcion: "test curso 2", estado: "cerrado"}
           ];
           setCurso(Cursos[1]);
-          setLoading(false);
+          setLoading(false);*/
             //[props.match.params.id,navigate]
-    }, [navigate]);
+    }, [id,navigate]);
 
     const handleInput = (e) => {
         e.persist();
         setCurso({...cursoInput, [e.target.name]: e.target.value });
     }
-
+    //definimos la Constante para guardar el formulario de Edicion
     const updateCurso = (e) => {
         e.preventDefault();
         
         //const Curso_id = props.match.params.id;
         // const data = cursoInput;
+        //obtenemos los datos del formulario
         const data = {
             nombre: cursoInput.nombre,
             descripcion: cursoInput.descripcion,
             estado: cursoInput.estado
         }
+        const Curso_id = id;
 
-        axios.put(`/api/update-curso/${props.match.params.id}`, data).then(res=>{
+        //mandamos los datos a la API para guardar los datos del Curso editado
+        axios.put(`/api/update-curso/${Curso_id}`, data).then(res=>{
+            //si se guardaron los datos correctamente emitimos un Mensaje y volvemos al listado
             if(res.data.status === 200)
             {
-                swal("Success",res.data.message,"success");
+                swal("Éxito",res.data.message,"success");
                 setError([]);
                 navigate('/cursos');
             }
             else if(res.data.status === 422)
             {
-                swal("All fields are mandetory","","error");
+                swal("Todos los campos son Obligatorios","","error");
                 setError(res.data.validationErrors);
             }
+            //si No se guardaron los datos emitimos un mensaje de Error
             else if(res.data.status === 404)
             {
                 swal("Error",res.data.message,"error");
@@ -75,7 +83,7 @@ function EditCurso(props) {
     {
         return <h4>Cargando datos de Curso...</h4>
     }
-    
+    //generamos el HTML del formulario de Edicion de Curso
     return (
         <div>
             <div className="container">

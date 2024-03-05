@@ -14,9 +14,10 @@ function ViewEstudiante() {
             {id : "2", nombre: "Jorge Caro", curso: "Programacion", email: "jcaro@gmail.com", telefono: "123456"}
           ];*/
         axios.get(`/api/estudiantes`).then(res=>{
+            console.log(res);
             if(res.status === 200)
             {
-                setEstudiante(res.data.Estudiantes)
+                setEstudiante(res.data.estudiantes)
                 setLoading(false);
             }
         });
@@ -52,8 +53,8 @@ function ViewEstudiante() {
     else
     {
         var Estudiante_HTMLTABLE = "";
-        
-        Estudiante_HTMLTABLE = Estudiantes.map( (item, index) => {
+        console.log(Estudiantes);
+        Estudiante_HTMLTABLE = Estudiantes?.map( (item, index) => {
             return (
                 <tr key={index}>
                     <td>{item.id}</td>

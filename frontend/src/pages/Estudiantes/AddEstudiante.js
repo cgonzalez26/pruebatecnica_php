@@ -30,7 +30,7 @@ function AddEstudiante() {
         }
 
         axios.post(`/api/add-estudiante`, data).then(res => {
-
+            console.log('add ',res);
             if(res.data.status === 200)
             {
                 swal("Éxito!",res.data.message,"success");
@@ -66,13 +66,13 @@ function AddEstudiante() {
                                 <form onSubmit={saveEstudiante} >
                                     <div className="form-group mb-3">
                                         <label>Nombre</label>
-                                        <input type="text" name="name" onChange={handleInput} value={estudianteInput.name} className="form-control" />
-                                        <span className="text-danger">{estudianteInput.error_list.name}</span>
+                                        <input type="text" name="nombre" onChange={handleInput} value={estudianteInput.nombre} className="form-control" />
+                                        <span className="text-danger">{estudianteInput.error_list.nombre}</span>
                                     </div>
                                     <div className="form-group mb-3">
                                         <label>Curso</label>
-                                        <input type="text" name="course" onChange={handleInput} value={estudianteInput.course}  className="form-control" />
-                                        <span className="text-danger">{estudianteInput.error_list.course}</span>
+                                        <input type="text" name="curso" onChange={handleInput} value={estudianteInput.curso}  className="form-control" />
+                                        <span className="text-danger">{estudianteInput.error_list.curso}</span>
                                     </div>
                                     <div className="form-group mb-3">
                                         <label>Email</label>
@@ -81,8 +81,8 @@ function AddEstudiante() {
                                     </div>
                                     <div className="form-group mb-3">
                                         <label>Telefono</label>
-                                        <input type="text" name="phone" onChange={handleInput} value={estudianteInput.phone}  className="form-control" />
-                                        <span className="text-danger">{estudianteInput.error_list.phone}</span>
+                                        <input type="text" name="telefono" onChange={handleInput} value={estudianteInput.telefono}  className="form-control" />
+                                        <span className="text-danger">{estudianteInput.error_list.telefono}</span>
                                     </div>
 
                                     <div className="form-group mb-3">

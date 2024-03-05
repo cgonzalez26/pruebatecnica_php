@@ -14,5 +14,5 @@ class Estudiante extends Model
         'email',
         'telefono',
         'curso',
-    ] 
+    ]; 
 }

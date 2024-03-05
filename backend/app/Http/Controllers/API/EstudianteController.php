@@ -4,6 +4,8 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Estudiante; 
+use Illuminate\Support\Facades\Validator;
 
 class EstudianteController extends Controller
 {
@@ -23,7 +25,7 @@ class EstudianteController extends Controller
             'nombre'=>'required|max:191',
             'curso'=>'required|max:191',
             'email'=>'required|email|max:191',
-            'telefono'=>'required|max:10|min:10',            
+            'telefono'=>'required|min:5',            
         ]);
 
         if($validator->fails())
@@ -76,7 +78,7 @@ class EstudianteController extends Controller
             'nombre'=>'required|max:191',  
             'curso'=>'required|max:191',          
             'email'=>'required|email|max:191',
-            'telefono'=>'required|max:10|min:10',            
+            'telefono'=>'required|min:5',            
         ]);
 
         if($validator->fails())

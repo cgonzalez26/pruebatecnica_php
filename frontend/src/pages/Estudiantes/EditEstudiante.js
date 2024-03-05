@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Link, useNavigate} from 'react-router-dom';
+import {Link, useNavigate, useParams} from 'react-router-dom';
 import axios from 'axios';
 import swal from 'sweetalert';
 
@@ -9,15 +9,17 @@ function EditEstudiante(props) {
     const [loading, setLoading] = useState(true);
     const [estudianteInput, setEstudiante] = useState([]);
     const [errorInput, setError] = useState([]);
+    const { id } = useParams();
 
     useEffect(() => {
         
-        //const Estudiante_id = props.match.params.id;
-        axios.get(`/api/edit-estudiante/${props.match.params.id}`).then( res => {   
+        const Estudiante_id = id;
+        //axios.get(`/api/edit-estudiante/${props.match.params.id}`).then( res => {   
+        axios.get(`/api/edit-estudiante/${Estudiante_id}`).then( res => {       
 
             if(res.data.status === 200)
             {
-                setEstudiante(res.data.Estudiante);
+                setEstudiante(res.data.estudiante);
                 setLoading(false);
             }
             else if(res.data.status === 404)
@@ -33,7 +35,7 @@ function EditEstudiante(props) {
           setEstudiante(Estudiantes[1]);
           setLoading(false);*/
             //[props.match.params.id,navigate]
-    }, [navigate]);
+    }, [id,navigate]);
 
     const handleInput = (e) => {
         e.persist();
@@ -51,8 +53,8 @@ function EditEstudiante(props) {
             email: estudianteInput.email,
             telefono: estudianteInput.telefono,
         }
-
-        axios.put(`/api/update-estudiante/${props.match.params.id}`, data).then(res=>{
+        const Estudiante_id = id;
+        axios.put(`/api/update-estudiante/${Estudiante_id}`, data).then(res=>{
             if(res.data.status === 200)
             {
                 swal("Éxito",res.data.message,"success");
@@ -93,13 +95,13 @@ function EditEstudiante(props) {
                                 <form onSubmit={updateEstudiante} >
                                     <div className="form-group mb-3">
                                         <label>Nonbre</label>
-                                        <input type="txt" name="name" onChange={handleInput} value={estudianteInput.nombre} className="form-control" />
-                                        <span className="text-danger">{errorInput.name}</span>
+                                        <input type="txt" name="nombre" onChange={handleInput} value={estudianteInput.nombre} className="form-control" />
+                                        <span className="text-danger">{errorInput.nombre}</span>
                                     </div>
                                     <div className="form-group mb-3">
                                         <label>Curso</label>
-                                        <input type="text" name="course" onChange={handleInput} value={estudianteInput.curso}  className="form-control" />
-                                        <span className="text-danger">{errorInput.course}</span>
+                                        <input type="text" name="curso" onChange={handleInput} value={estudianteInput.curso}  className="form-control" />
+                                        <span className="text-danger">{errorInput.curso}</span>
                                     </div>
                                     <div className="form-group mb-3">
                                         <label>Email</label>
@@ -108,8 +110,8 @@ function EditEstudiante(props) {
                                     </div>
                                     <div className="form-group mb-3">
                                         <label>Telefono</label>
-                                        <input type="text" name="phone" onChange={handleInput} value={estudianteInput.telefono}  className="form-control" />
-                                        <span className="text-danger">{errorInput.phone}</span>
+                                        <input type="text" name="telefono" onChange={handleInput} value={estudianteInput.telefono}  className="form-control" />
+                                        <span className="text-danger">{errorInput.telefono}</span>
                                     </div>
                                     <div className="form-group mb-3">
                                         <button type="submit" id="updatebtn" className="btn btn-primary">Guardar</button>

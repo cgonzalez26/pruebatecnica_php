@@ -3,6 +3,11 @@ import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
 import Navbar from './pages/Shared/Navbar';
 import Home from './pages/Home/Home';
+import Login from './pages/Auth/Login';
+import Register from './pages/Auth/Register';
+import Guest from './pages/Shared/Navbar/guest';
+import Auth from './pages/Shared/Navbar/auth';
+import AuthUser from './pages/Auth/AuthUser';
 
 import ViewEstudiante from './pages/Estudiantes/ViewEstudiante';
 import AddEstudiante from './pages/Estudiantes/AddEstudiante';
@@ -15,13 +20,26 @@ import axios from 'axios';
 axios.defaults.baseURL = "http://localhost:8000/";
 
 function App() {
+  const navbar = () =>{
+    const {getToken} = AuthUser();
+    if(!getToken()){
+      return <Guest />
+    }
+    return (
+        <Auth />
+    );
+  };
+
   return (
     <div className="App">
       <Router>
-        <Navbar />
+        {navbar}
 
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/logout" element={<Home />} />
           <Route path="/estudiantes" element={<ViewEstudiante />} />
           <Route path="/estudiantes/add-estudiante" element={<AddEstudiante />} />
           <Route path="/estudiantes/edit-estudiante/:id" element={<EditEstudiante />} />

@@ -17,30 +17,30 @@ function Register() {
     }
 
     return(
-        <div className="row justify-content-left pt-5">
+        <div className="row justify-content-center pt-5">
             <div className="col-sm-6">
                 <div className="card p-4">
-                    <h1 className="text-center mb-3">Register </h1>
+                    <h1 className="text-center mb-3">Registro </h1>
                     <div className="form-group">
-                        <label>Name:</label>
-                        <input type="test" className="form-control" placeholder="Enter name"
+                        <label>Nombre:</label>
+                        <input type="text" className="form-control" placeholder="Imgresar Nombre"
                             onChange={e=>setName(e.target.value)}
-                        id="email" />
+                        id="name" />
                     </div>
                     <div className="form-group mt-3">
-                        <label>Email address:</label>
-                        <input type="email" className="form-control" placeholder="Enter email"
+                        <label>E-mail:</label>
+                        <input type="email" className="form-control" placeholder="Ingresar e-mail"
                             onChange={e=>setEmail(e.target.value)}
                         id="email" />
                     </div>
 
                     <div className="form-group mt-3">
                         <label>Password:</label>
-                        <input type="password" className="form-control" placeholder="Enter password"
+                        <input type="password" className="form-control" placeholder="Ingresar password"
                             onChange={e => setPassword(e.target.value)}
-                        id="pwd" />
+                        id="password" />
                     </div>
-                    <button type="button" onClick={submitForm} className="btn btn-primary mt-4">Register</button>
+                    <button type="button" onClick={submitForm} className="btn btn-primary mt-4">Registrar</button>
                 </div>
             </div>
         </div>

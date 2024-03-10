@@ -1,8 +1,10 @@
 import { useState } from "react"
 import AuthUser from './AuthUser';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function Login() {
+    const navigate = useNavigate();
     const {http,setToken} = AuthUser();
     const [email,setEmail] = useState();
     const [password,setPassword] = useState();
@@ -11,6 +13,7 @@ function Login() {
         // api call
         http.post('/login',{email:email,password:password}).then((res)=>{
             setToken(res.data.user,res.data.access_token);
+            navigate('/home')
         })
     }
 
@@ -29,7 +32,7 @@ function Login() {
                         <label>Contraseña:</label>
                         <input type="password" className="form-control" placeholder="Enter password"
                             onChange={e => setPassword(e.target.value)}
-                        id="pwd" />
+                        id="password" />
                     </div>
                     <button type="button" onClick={submitForm} className="btn btn-primary mt-4">Login</button>
                 </div>

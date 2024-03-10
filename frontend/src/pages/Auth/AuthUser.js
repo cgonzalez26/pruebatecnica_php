@@ -28,7 +28,7 @@ export default function AuthUser(){
 
         setToken(token);
         setUser(user);
-        navigate('/dashboard');
+        navigate('/home');
     }
 
     const logout = () => {

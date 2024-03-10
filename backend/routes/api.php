@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\EstudianteController;
 use App\Http\Controllers\API\CursoController;
+use App\Http\Controllers\API\AuthController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,6 +15,9 @@ use App\Http\Controllers\API\CursoController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::post('login', [AuthController::class,'login']);
+Route::post('register', [AuthController::class,'register']);
+
 //Rutas API para los metodos HTTP de Estudiantes
 Route::get('estudiantes', [EstudianteController::class, 'index']);
 Route::post('/add-estudiante', [EstudianteController::class, 'add']);

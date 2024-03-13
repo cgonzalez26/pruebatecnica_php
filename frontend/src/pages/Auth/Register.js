@@ -11,11 +11,17 @@ function Register() {
 
     const submitForm = () =>{
         // api call
-        http.post('/register',{email:email,password:password,name:name}).then((res)=>{
+        http.post('/register',{name:name,email:email,password:password}).then((res)=>{
             navigate('/login')
         })
     }
 
+    const messages = {
+        req: "Este campo es obligatorio",
+        name: "El formato introducido no es el correcto",
+        mail: "Debes introducir una dirección correcta"
+       };
+       
     return(
         <div className="row justify-content-center pt-5">
             <div className="col-sm-6">

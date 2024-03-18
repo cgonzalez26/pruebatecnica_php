@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Role;
 
 class AuthController extends Controller
 {
@@ -38,7 +39,10 @@ class AuthController extends Controller
     {
         $credentials = request(['name','email', 'password']);
         $credentials['password'] = bcrypt($credentials['password']);
-        User::create($credentials);
+        //User::create($credentials);
+        $user = User::create($credentials);
+
+        $user->roles()->attach(Role::where('nombre', 'usuario')->first());
 
         return response()->json('success');
     }

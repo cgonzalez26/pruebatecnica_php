@@ -15,15 +15,15 @@ function Register() {
         shouldUseNativeValidation: true,
       });
 
-    const onSubmit = () => {
-        //console.log(errors);
+    const onSubmit = (data) => {
+        //console.log(data.name,'-',data.email,'-',data.password);
         setErrorRegistro(false);
-        http.post('/register',{name:name,email:email,password:password})
+        http.post('/register',{name:data.name,email:data.email,password:data.password})
         .then((res)=>{
             console.log('register',res);
             if(res.request.status === 200)
             {
-                swal("Éxito!",res.data.message,"success");
+                swal("Éxito!","El Usuario se registro correctamente","success");
                 navigate('/login')
             }
             else if(res.request.status === 401)
@@ -32,6 +32,7 @@ function Register() {
             }
         })
         .catch((e) => {
+            console.log('datos',e);
             console.log('entro',errors);
             setErrorRegistro(true);
         });
@@ -54,7 +55,7 @@ function Register() {
                         <h1 className="text-center mb-3">Registro </h1>
                         <div className="form-group">
                             <label>Nombre:</label>
-                            <input type="text" className="form-control" placeholder="Imgresar Nombre"
+                            <input type="text" className="form-control" placeholder="Ingresar Nombre"
                                 onChange={e=>setName(e.target.value)}
                             id="name" {...register("name", { required: messages.req })}/>
                         </div>
